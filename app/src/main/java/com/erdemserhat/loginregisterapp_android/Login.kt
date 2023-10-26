@@ -1,13 +1,19 @@
 package com.erdemserhat.loginregisterapp_android
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import com.erdemserhat.loginregisterapp_android.databinding.FragmentLoginBinding
-import com.erdemserhat.loginregisterapp_android.user_input_exceptions.IllegalUsernameException
+import com.erdemserhat.loginregisterapp_android.exceptions.IllegalArgumentByUserException
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,7 +79,14 @@ class Login : Fragment() {
         fragmentMainBinding=binding
 
         binding.loginButton.setOnClickListener {
-            validUserInformationToLogin()
+            var control =FormValidator.validateForm(arrayOf<TextView>(binding.editTextUsername,binding.editTextPassword))
+
+            binding.titleHome.text=control.toString()
+        }
+
+        binding.signInButton.setOnClickListener {
+
+
         }
 
 
@@ -88,25 +101,5 @@ class Login : Fragment() {
         fragmentMainBinding=null;
     }
 
-    private fun validUserInformationToLogin(){
-        var username:String
-        try{
-            if(binding.editTextUsername.text==null || binding.editTextUsername.text.toString()?.length==0  || binding.editTextUsername.text?.trim().toString().isEmpty()){
-                throw IllegalUsernameException("Please enter a valid username")
-
-            }else{
-                username=binding.editTextUsername.toString()
-            }
-
-
-
-        }catch (ex:IllegalUsernameException){
-            Toast.makeText(binding.editTextUsername.context, ex.message, Toast.LENGTH_SHORT).show()
-
-
-
-
-        }
-
-    }
 }
+

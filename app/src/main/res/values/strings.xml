@@ -24,6 +24,12 @@
     <string name="send_mail_text">Send</string>
     <string name="reset_password">Reset Password</string>
 
+    IllegalArgumentException
+
+    <!-- Illegal Argument Exception Message Error Message!-->
+
+    <string name="illegal_argument_exception_message">Text fields cannot be empty or contain spaces!</string>
+
 
 
 </resources>

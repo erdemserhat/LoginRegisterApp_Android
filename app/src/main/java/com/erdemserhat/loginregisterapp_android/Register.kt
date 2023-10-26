@@ -69,5 +69,7 @@ class Register : Fragment() {
 
         binding.registerButton //
 
+
+
     }
 }
