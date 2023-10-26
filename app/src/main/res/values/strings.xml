@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">LoginRegisterApp_Android</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Login Screen String Resources !-->
+    <string name="login_title_text">Login or Register</string>
+    <string name="edit_text_username_hint">Username</string>
+    <string name="edit_text_password_hint">Password</string>
+    <string name="edit_text_email_hint">Email</string>
+    <string name="checkbox_text">Show Password</string>
+    <string name="login_button_text">Login</string>
+    <string name="sign_in_button_text">Sign in</string>
+    <string name="reset_password_text">Reset Password</string>
+
+    <!-- Register Screen String Resources !-->
+    <string name="register_title_text">Register</string>
+    <string name="home_button_text">Home</string>
+    <string name="register_button_text">Register</string>
+
+
+    <!-- Reset Password String Resources !-->
+
+    <string name="send_mail_text">Send</string>
+    <string name="reset_password">Reset Password</string>
+
+
+
+</resources>
