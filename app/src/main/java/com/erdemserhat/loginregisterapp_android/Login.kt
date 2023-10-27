@@ -85,6 +85,12 @@ class Login : Fragment() {
         }
 
         binding.signInButton.setOnClickListener {
+            val register:Register= Register()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.mainFrame,register)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
 
 
         }

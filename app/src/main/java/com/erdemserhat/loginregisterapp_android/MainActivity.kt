@@ -1,5 +1,7 @@
 package com.erdemserhat.loginregisterapp_android
 
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
@@ -16,5 +18,6 @@ class MainActivity : AppCompatActivity() {
         val transaction:FragmentTransaction =fragmentManager.beginTransaction()
         transaction.add(R.id.mainFrame,loginFragment,"Login")
         transaction.commit()
+
     }
 }
