@@ -40,21 +40,22 @@ class LocalDatabase(val context: Context) {
             user_list.add(User(cursor.getString(usernameIx),cursor.getString(emailIx),cursor.getString(password)))
 
         }
+        database.close()
         return user_list
 
     }
 
-    fun login(user:User):MutableList<Object>{
-        val (username, password) = user
-        val answerList:MutableList<Object> = mutableListOf()
+    fun isUserRegistered(user: User): Boolean {
+        getLocalDatabase(context)
+        val (username,email,password) = user
         val selectionArgs = arrayOf(username, password)
         getLocalDatabase(context)
-        val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_USERNAME=? AND $COLUMN_PASSWORD=?" // WHERE koşulu doğru biçimde düzenlendi
-        val cursor: Cursor = database.rawQuery(query, selectionArgs)
-        val isUserValid = cursor.moveToNext()
-
-
-
+        val query =
+            "SELECT * FROM $TABLE_NAME WHERE $COLUMN_USERNAME='$username' AND $COLUMN_PASSWORD='$password'" // WHERE koşulu doğru biçimde düzenlendi
+        val cursor: Cursor = database.rawQuery(query, null)
+        val isValidUser = cursor.moveToNext()
+        database.close()
+        return isValidUser
 
 
     }

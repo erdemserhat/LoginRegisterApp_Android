@@ -1,8 +1,11 @@
 package com.erdemserhat.loginregisterapp_android
 
-import android.graphics.Color
+import android.app.AlertDialog
+import android.app.Dialog
+import android.location.Address
 import android.os.Bundle
-import android.os.Handler
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +13,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import com.erdemserhat.loginregisterapp_android.databinding.FragmentLoginBinding
-import com.erdemserhat.loginregisterapp_android.exceptions.IllegalArgumentByUserException
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,8 +80,13 @@ class Login : Fragment() {
 
         binding.loginButton.setOnClickListener {
             var control =FormValidator.validateForm(arrayOf<TextView>(binding.editTextUsername,binding.editTextPassword))
+            if(control==true){
+                val user = User(username = binding.editTextUsername.text.toString(), password=binding.editTextPassword.text.toString())
+                val referenceContext=binding.editTextUsername.context
+                val isUserRegistered= LocalDatabase(referenceContext).isUserRegistered(user)
+                Toast.makeText(referenceContext,if(isUserRegistered) "Welcome, ${user.username} !" else "Wrong Information !",Toast.LENGTH_SHORT).show()
+            }
 
-            binding.titleHome.text=control.toString()
         }
 
         binding.signInButton.setOnClickListener {
@@ -91,11 +96,57 @@ class Login : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
 
+        }
+
+        binding.checkBoxShowPassword.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // Metni görünür hale getirin
+                binding.editTextPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                // Metni gizli hale getirin
+                binding.editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
+
+        binding.resetPassword.setOnClickListener{
+            val referenceContext = binding.editTextUsername.context
+            val builder= AlertDialog.Builder(referenceContext)
+
+            builder.setTitle("Reset Password")
+
+            //Dialog Context
+            val input=EditText(referenceContext)
+            input.hint = "type your email address"
+            builder.setView(input)
+            var dialog:Dialog? = null
+
+            builder.setPositiveButton("SEND") { _, _ ->
+                val userInput = input.text.toString()
+                val isInputValid = FormValidator.validateForm(arrayOf(input))
+                if(isInputValid==true){
+
+
+
+
+                }
+
+            }
+
+            builder.setNegativeButton("CANCEL") { _, _ ->
+                dialog?.cancel()
+                Toast.makeText(referenceContext,"Cancelled",Toast.LENGTH_SHORT).show()
+
+            }
+
+            dialog = builder.create()
+            dialog.show()
+
+
+
+
 
 
         }
-
-
 
 
     }
@@ -107,5 +158,10 @@ class Login : Fragment() {
         fragmentMainBinding=null;
     }
 
-}
+
+    }
+
+
+
+
 
